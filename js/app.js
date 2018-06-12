@@ -1,15 +1,17 @@
 
 
 
-
 const cards = document.querySelectorAll('.deck li');
+
+// Start game with initial
 
 function startGame() {
   for (let card of cards) {
-      card.className = "card show";
+      card.className = "card";
       card.isClicked = 0;
   }
-  shuffleDeck(cards); 
+  shuffleDeck(cards);
+
 }
 
 
@@ -65,6 +67,11 @@ startGame();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+cards.forEach(card => card.addEventListener('click', function (evt) {
+  card.className = "card show open";
+}
+));
 
 
 
