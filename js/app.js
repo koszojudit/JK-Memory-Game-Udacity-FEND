@@ -92,6 +92,10 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
     currentCard.className = 'card match show';
     openCards.push(previousCard, currentCard);
 
+    if (openCards.length === 16) {
+      alert("You won!");
+    }
+
   } else {
     setTimeout(() => {
       previousCard.className = 'card close';
@@ -99,7 +103,6 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
     }, 800);
 
   }
-
 
 }
 ));
@@ -119,18 +122,16 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
  *   - hover animation
  *   - click event effects:
  *      - put card to open status DONE
- *         - animation (turn)
- *         - display icon
- *         - change bgrd color
+ *         - animation (turn) DONE
+ *         - display icon DONE
+ *         - change bgrd color DONE
  *
  *   - matching logic (if open card list is not empty, amtch symbols)
-  *     - ignore clicking the same card again
- *      - if match:
- *         - keep cards open
- *         - change bgrd color
+  *     - ignore clicking the same card again DONE
+ *      - if match: keep cards open, change bgrd color DONE
  *      - if does not match:
- *         - remove from list of open cards
- *         - hide symbol, animation, default bgrd color
+ *         - remove from list of open cards DONE
+ *         - hide symbol, animation, default bgrd color DONE
 
  * 3. Move counter
  *   - increase by 1 if a new card is clicked
