@@ -3,6 +3,8 @@
 
 const cards = document.querySelectorAll('.deck li');
 
+let openCards = [];
+
 // Start game with initial
 
 function startGame() {
@@ -57,6 +59,7 @@ function shuffleDeck (deck) {
 startGame();
 
 
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -70,8 +73,38 @@ startGame();
 
 cards.forEach(card => card.addEventListener('click', function (evt) {
   card.className = "card show open";
+  openCards.push(card);
+
+  if (openCards.length %2 === 1) {
+    return;
+  }
+
+  let currentCard=openCards.pop();
+  let previousCard=openCards.pop();
+
+  if (previousCard === currentCard) {
+    openCards.push(previousCard);
+    return;
+  }
+
+  if (previousCard.firstElementChild.className === currentCard.firstElementChild.className) {
+    previousCard.className = 'card match show';
+    currentCard.className = 'card match show';
+    openCards.push(previousCard, currentCard);
+
+  } else {
+    setTimeout(() => {
+      previousCard.className = 'card close';
+      currentCard.className = 'card close';
+    }, 800);
+
+  }
+
+
 }
 ));
+
+
 
 
 
@@ -79,19 +112,19 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
 /* TODOs:
 
  * 1. Page onLoad:
- *   - shuffle cards randomly
- *   - display cards
+ *   - shuffle cards randomly DONE
+ *   - display cards DONE
 
  * 2. Card event Listeners
  *   - hover animation
  *   - click event effects:
- *      - if first click: start timer
- *      - check if new card is clicked, if yes, increase move count by 1
- *      - put card to open status
+ *      - put card to open status DONE
  *         - animation (turn)
  *         - display icon
  *         - change bgrd color
+ *
  *   - matching logic (if open card list is not empty, amtch symbols)
+  *     - ignore clicking the same card again
  *      - if match:
  *         - keep cards open
  *         - change bgrd color
@@ -107,7 +140,7 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
  *   -  decrease by 1 if a certain condition is met in move count
 
  * 5. Timer
- *   - start when first card is clicked and put to open status
+ *   - start when first card is clicked (and put to open status)
  *   - stop when all cards are open and matched
 
  * 6. Congratulations popup
