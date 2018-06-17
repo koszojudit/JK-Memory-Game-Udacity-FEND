@@ -25,17 +25,6 @@ const restartButton = document.querySelector('.restart');
 const playAgainButton = document.querySelector('congratulations .restart');
 
 
-// Start game with initial
-
-function startGame() {
-  for (let card of cards) {
-      card.className = "card";
-      card.isClicked = 0;
-  }
-  shuffleDeck(cards);
-  updateStars(3);
-}
-
 // Create a list that holds all of your cards
 
  const listOfCards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt",
@@ -71,7 +60,72 @@ function shuffleDeck (deck) {
     }
 }
 
-startGame();
+// MOVE COUNTER - Function for resetting move counter
+
+function resetCounter() {
+  numberOfMoves = 0;
+  moveCounter.innerHTML = numberOfMoves;
+}
+
+// MOVE COUNTER - Function for incrementing
+
+function incrementCounter() {
+  numberOfMoves++;
+  moveCounter.innerHTML = numberOfMoves;
+}
+
+// STAR RATING - Get rating based on number of moves
+
+function getRating(moves) {
+    if (moves <= twoStarLimit) {
+        return 3;
+    } else if (moves <= oneStarLimit){
+        return 2;
+    } else {
+        return 1;
+    }
+}
+
+// STAR RATING - Update number of stars visible based on the rating (depending on the number of moves)
+function updateStars(rating) {
+    let invisible = stars.slice(rating);
+    let visible = stars.slice(0, rating);
+
+    invisible.forEach(star => star.style.visibility = "hidden");
+    visible.forEach(star => star.style.visibility = "visible");
+}
+
+// TIMER - Padding numbers to display two digits: https://gist.github.com/endel/321925f6cafa25bbfbde
+
+Number.prototype.pad = function(size) {
+  var sign = Math.sign(this) === -1 ? '-' : '';
+  return sign + new Array(size).concat([Math.abs(this)]).join('0').slice(-size);
+}
+
+// TIMER - Start timer
+function startTimer() {
+  elapsedSeconds = 0;
+  timerId = setInterval (incrementTimer, 1000);
+}
+
+// TIMER - Increment timer
+function incrementTimer() {
+  elapsedSeconds++;
+  updateTimer(elapsedSeconds);
+}
+
+// TIMER - Function for update timer
+function updateTimer(elapsedSeconds) {
+  let seconds = elapsedSeconds % 60;
+  let minutes = Math.floor(elapsedSeconds / 60);
+  let displayedTime = `${minutes.pad(2)}:${seconds.pad(2)}`;
+  timer.innerHTML = displayedTime;
+}
+
+// TIMER - Stop timer
+function stopTimer() {
+  clearInterval(timerId);
+}
 
 /* Set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol ------- (put this functionality in another function that you call from this one)
@@ -82,6 +136,11 @@ startGame();
  *    + increment the move counter and display it on the page ------- (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score ------- (put this functionality in another function that you call from this one)
  */
+
+ // Event listener for restart button
+ restartButton.addEventListener('click', function (evt) {
+   startGame();
+ });
 
 // Event listener for cards - if a card is clicked, open the card and push it to a stack called 'openCards'
 cards.forEach(card => card.addEventListener('click', function (evt) {
@@ -96,7 +155,7 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
 
   // Star timer on first move
   if (numberOfMoves === 1) {
-    timerId = setInterval (updateTimer, 1000)
+    startTimer();
   }
 
   let rating = getRating(numberOfMoves);
@@ -149,53 +208,25 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
 
 }));
 
-// MOVE COUNTER - Function for incrementing
+// Start game with initial
 
-function incrementCounter() {
-  numberOfMoves++;
-  moveCounter.innerHTML = numberOfMoves;
+function startGame() {
+  for (let card of cards) {
+      card.className = "card";
+      card.isClicked = 0;
+  }
+  openCards = [];
+  shuffleDeck(cards);
+  resetCounter();
+  updateStars(3);
+  stopTimer();
+  updateTimer(0);
 }
 
-// STAR RATING - Get rating based on number of moves
-
-function getRating(moves) {
-    if (moves <= twoStarLimit) {
-        return 3;
-    } else if (moves <= oneStarLimit){
-        return 2;
-    } else {
-        return 1;
-    }
-}
-
-// STAR RATING - Update number of stars visible based on the rating (depending on the number of moves)
-function updateStars(rating) {
-    let invisible = stars.slice(rating);
-    let visible = stars.slice(0, rating);
-
-    invisible.forEach(star => star.style.visibility = "hidden");
-    visible.forEach(star => star.style.visibility = "visible");
-}
-
-// TIMER - Start timer
+startGame();
 
 
-// TIMER - Function for update timer
 
-function updateTimer() {
-  elapsedSeconds++;
-  let seconds = elapsedSeconds % 60;
-  let minutes = Math.floor(elapsedSeconds / 60);
-  let displayedTime = `${minutes.pad(2)}:${seconds.pad(2)}`;
-  timer.innerHTML = displayedTime;
-}
-
-// TIMER - Padding numbers to display two digits: https://gist.github.com/endel/321925f6cafa25bbfbde
-
-Number.prototype.pad = function(size) {
-  var sign = Math.sign(this) === -1 ? '-' : '';
-  return sign + new Array(size).concat([Math.abs(this)]).join('0').slice(-size);
-}
 
 /* TODOs:
 
