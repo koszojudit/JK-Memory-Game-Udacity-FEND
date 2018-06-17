@@ -2,129 +2,232 @@
 - styling HTML elements
 - animations
 - responsive breakpoints
- */
+*/
 
 
- html {
-     box-sizing: border-box;
- }
+html {
+  box-sizing: border-box;
+}
 
- *,
- *::before,
- *::after {
-     box-sizing: inherit;
- }
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 
- html,
- body {
-     width: 100%;
-     height: 100%;
-     margin: 0;
-     padding: 0;
- }
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
- body {
-     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-     font-family: 'Coda', cursive;
- }
+body {
+  background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+  font-family: 'Coda', cursive;
+}
 
- .container {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     flex-direction: column;
- }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
- h1 {
-     font-family: 'Open Sans', sans-serif;
-     font-weight: 300;
- }
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
 
- /*
-  * Styles for the deck of cards
-  */
+/*
+* Styles for the deck of cards
+*/
 
- .deck {
-     width: 660px;
-     min-height: 680px;
-     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-     padding: 32px;
-     border-radius: 10px;
-     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-     display: flex;
-     flex-wrap: wrap;
-     justify-content: space-between;
-     align-items: center;
-     margin: 0 0 3em;
- }
+.deck {
+  width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
+}
 
- .deck .card {
-     height: 125px;
-     width: 125px;
-     background: #2e3d49;
-     font-size: 0;
-     color: #ffffff;
-     border-radius: 8px;
-     cursor: pointer;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
- }
+.deck .card {
+  height: 125px;
+  width: 125px;
+  background: #2e3d49;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
 
- .deck .card.open {
-     transform: rotateY(180deg);
-     transition: width 2s, height 2s, transform 0.8s;
-     background: #02b3e4;
-     cursor: default;
- }
+.deck .card.open {
+  transform: rotateY(180deg);
+  transition: width 2s, height 2s, transform 0.8s;
+  background: #02b3e4;
+  cursor: default;
+}
 
- .deck .card.show {
-     font-size: 33px;
- }
+.deck .card.show {
+  font-size: 33px;
+}
 
- .deck .card.match {
-     transform: rotateY(180deg);
-     transition: width 2s, height 2s, transform 0.8s;
-     cursor: default;
-     background: #02ccba;
-     font-size: 33px;
- }
+.deck .card.match {
+  transform: rotateY(180deg);
+  transition: width 2s, height 2s, transform 0.8s;
+  cursor: default;
+  background: #02ccba;
+  font-size: 33px;
+}
 
- .deck .card.close {
-     transform: rotateY(0deg);
-     transition: width 2s, height 2s, transform 0.8s;
-     background: #2e3d49;
- }
+.deck .card.close {
+  transform: rotateY(0deg);
+  transition: width 2s, height 2s, transform 0.8s;
+  background: #2e3d49;
+}
 
- /*
-  * Styles for the Score Panel
-  */
+/*
+* Styles for the Score Panel
+*/
 
- .score-panel {
-     text-align: left;
-     width: 345px;
-     margin-bottom: 10px;
- }
+.score-panel {
+  text-align: left;
+  width: 345px;
+  margin-bottom: 10px;
+}
 
- .score-panel .stars {
-     margin: 0;
-     padding: 0;
-     display: inline-block;
-     margin: 0 5px 0 0;
- }
+.score-panel .stars {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
+}
 
- .score-panel .stars li {
-     list-style: none;
-     display: inline-block;
- }
+.score-panel .stars li {
+  list-style: none;
+  display: inline-block;
+}
 
- .score-panel .restart {
-     float: right;
-     cursor: pointer;
- }
+.score-panel .restart {
+  float: right;
+  cursor: pointer;
+}
 
- .score-panel .timer {
-     display: inline-flex;
-     margin-left: 5em;
- }
+.score-panel .timer {
+  display: inline-flex;
+  margin-left: 5em;
+}
+
+/*
+* Styles for the Winning Popup
+*/
+
+.popup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.popup-bgrd {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #2e3d49;
+  opacity: 0.7;
+}
+
+.winning-popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+
+  padding: 1.5em;
+  border-radius: 10px;
+  box-shadow: 12px rgb(46, 61,73, 0.5);
+  opacity: 1;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  display: inline-block;
+}
+
+.winning-popup-left {
+  width: 60%;
+  float: left;
+  display: inline-block;
+  padding-left: 2em;
+}
+
+.winning-popup-left h1 {
+  text-align: center;
+  font-size: 2.5em;
+}
+
+.left h2 {
+  font-size: 1.2em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  margin: 0 1em 1em 0;
+}
+
+button {
+  color: #373737;
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: normal;
+  font-size: 0.9em;
+  padding: 0.5em;
+  border-radius: 0.25em;
+  text-align: center;
+}
+
+.winning-popup-right {
+  width: 40%;
+  float: right;
+  display: inline-block;
+}
+
+#image-unicorn {
+  padding-top: 1em;
+  text-align: right;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.copywright {
+  font-size: 0.6em;
+  color: #373737;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+  width: 80%;
+  text-align: center;
+}
