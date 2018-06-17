@@ -19,6 +19,7 @@ const oneStarLimit = 8;
 
 const timer = document.querySelector('.timer');
 let elapsedSeconds = 0;
+let timerId;
 
 // Start game with initial
 
@@ -131,10 +132,11 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
     currentCard.className = 'card match show';
     openCards.push(previousCard, currentCard);
 
-    // Winning condition: if all cards are revealed (open), player wins the game
+    // Winning condition: if all cards are revealed (open), player wins the game, timer stops
 
     if (openCards.length === 16) {
       alert("You won!");
+      clearInterval(timerId);
     }
 
 
@@ -178,7 +180,7 @@ function updateStars(rating) {
 
 /*
  * Functions for updating timer
- * Padding numbers to 2: https://gist.github.com/endel/321925f6cafa25bbfbde
+ * Padding numbers to display two digits: https://gist.github.com/endel/321925f6cafa25bbfbde
  */
 
 function updateTimer() {
@@ -223,7 +225,7 @@ Number.prototype.pad = function(size) {
  *   -  decrease by 1 if a certain condition is met in move count DONE
  *   -  display 3 stars when game is reset DONE
 
- * 5. Timer
+ * 5. Timer DONE
  *   - start when first card is clicked (and put to open status)
  *   - stop when all cards are open and matched
 
