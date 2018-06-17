@@ -1,25 +1,29 @@
 
 
-// Defining global variables
-
+// Global variables for cards
 const cards = document.querySelectorAll('.deck li');
-const moveCounter = document.querySelector('.moves');
-let numberOfMoves = 0;
 let openCards = [];
 
-/*
- * Defining global variables for star rating
- *   - Convert nodelist to array https://davidwalsh.name/nodelist-array
- *   - Set the limit for switching star rating
- */
+// Global variables for move counter
+const moveCounter = document.querySelector('.moves');
+let numberOfMoves = 0;
 
+
+/* Global variables for star rating
+ * Convert nodelist to array https://davidwalsh.name/nodelist-array */
 const stars = Array.prototype.slice.call(document.querySelectorAll('.stars li'));
 const twoStarLimit = 5;
 const oneStarLimit = 8;
 
+// Global variables for timer
 const timer = document.querySelector('.timer');
 let elapsedSeconds = 0;
 let timerId;
+
+// Global variables for restart buttons
+const restartButton = document.querySelector('.restart');
+const playAgainButton = document.querySelector('congratulations .restart');
+
 
 // Start game with initial
 
@@ -38,12 +42,10 @@ function startGame() {
      "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb",
      "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
 
-/*
- * Display the cards on the page
+/* Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+ *   - add each card's HTML to the page */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -71,15 +73,14 @@ function shuffleDeck (deck) {
 
 startGame();
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+/* Set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol ------- (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards ------- (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ *    + if the cards do match, lock the cards in the open position ------- (put this functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol ------- (put this functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page ------- (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score ------- (put this functionality in another function that you call from this one)
  */
 
 // Event listener for cards - if a card is clicked, open the card and push it to a stack called 'openCards'
@@ -122,9 +123,6 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
     return;
   }
 
-  // If user clicked another card, increment move counter by 1
-
-
   // If the symbols match, put cards in 'match' status and push them back to 'openCards' stack
 
   if (previousCard.firstElementChild.className === currentCard.firstElementChild.className) {
@@ -139,7 +137,6 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
       clearInterval(timerId);
     }
 
-
   // If the symbols does not match, close the two cards with a little delay (so that opening the current card is visible to the player)
 
   } else {
@@ -152,12 +149,14 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
 
 }));
 
+// MOVE COUNTER - Function for incrementing
+
 function incrementCounter() {
   numberOfMoves++;
   moveCounter.innerHTML = numberOfMoves;
 }
 
-// Gewt rating based on number of moves
+// STAR RATING - Get rating based on number of moves
 
 function getRating(moves) {
     if (moves <= twoStarLimit) {
@@ -169,7 +168,7 @@ function getRating(moves) {
     }
 }
 
-// Update number of stars visible based on the rating (depending on the number of moves)
+// STAR RATING - Update number of stars visible based on the rating (depending on the number of moves)
 function updateStars(rating) {
     let invisible = stars.slice(rating);
     let visible = stars.slice(0, rating);
@@ -178,10 +177,10 @@ function updateStars(rating) {
     visible.forEach(star => star.style.visibility = "visible");
 }
 
-/*
- * Functions for updating timer
- * Padding numbers to display two digits: https://gist.github.com/endel/321925f6cafa25bbfbde
- */
+// TIMER - Start timer
+
+
+// TIMER - Function for update timer
 
 function updateTimer() {
   elapsedSeconds++;
@@ -191,6 +190,8 @@ function updateTimer() {
   timer.innerHTML = displayedTime;
 }
 
+// TIMER - Padding numbers to display two digits: https://gist.github.com/endel/321925f6cafa25bbfbde
+
 Number.prototype.pad = function(size) {
   var sign = Math.sign(this) === -1 ? '-' : '';
   return sign + new Array(size).concat([Math.abs(this)]).join('0').slice(-size);
@@ -198,7 +199,7 @@ Number.prototype.pad = function(size) {
 
 /* TODOs:
 
- * 1. Page onLoad:
+ * 1. Page onLoad DONE
  *   - shuffle cards randomly DONE
  *   - display cards DONE
 
@@ -226,8 +227,8 @@ Number.prototype.pad = function(size) {
  *   -  display 3 stars when game is reset DONE
 
  * 5. Timer DONE
- *   - start when first card is clicked (and put to open status)
- *   - stop when all cards are open and matched
+ *   - start when first card is clicked (and put to open status) DONE
+ *   - stop when all cards are open and matched DONE
 
  * 6. Restart button
  *   - reset gameboard (close all cards, shuffle cards)
