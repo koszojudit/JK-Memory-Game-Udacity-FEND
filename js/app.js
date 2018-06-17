@@ -4,12 +4,18 @@
 
 const cards = document.querySelectorAll('.deck li');
 const moveCounter = document.querySelector('.moves');
-
-// Convert nodelist to array https://davidwalsh.name/nodelist-array
-const stars = Array.prototype.slice.call(document.querySelectorAll('.stars li'));
-
 let numberOfMoves = 0;
 let openCards = [];
+
+/*
+ * Defining global variables for star rating
+ *   - Convert nodelist to array https://davidwalsh.name/nodelist-array
+ *   - Set the limit for switching star rating
+ */
+
+const stars = Array.prototype.slice.call(document.querySelectorAll('.stars li'));
+const twoStarLimit = 5;
+const oneStarLimit = 8;
 
 // Start game with initial
 
@@ -145,9 +151,9 @@ function incrementCounter() {
 // Gewt rating based on number of moves
 
 function getRating(moves) {
-    if (moves <= 5) {
+    if (moves <= twoStarLimit) {
         return 3;
-    } else if (moves <= 8){
+    } else if (moves <= oneStarLimit){
         return 2;
     } else {
         return 1;
@@ -170,7 +176,7 @@ function updateStars(rating) {
  *   - shuffle cards randomly DONE
  *   - display cards DONE
 
- * 2. Card event Listeners
+ * 2. Card event Listeners DONE
  *   - hover animation SKIP
  *   - click event effects: DONE
  *      - put card to open status DONE
@@ -179,22 +185,23 @@ function updateStars(rating) {
  *         - change bgrd color DONE
  *
  *   - matching logic (if open card list is not empty, amtch symbols) DONE
-  *     - ignore clicking the same card again DONE
- *      - if match: keep cards open, change bgrd color DONE
- *      - if does not match:
+ *     - ignore clicking the same card again DONE
+ *     - ignore clicking an already open card DONE
+ *     - if match: keep cards open, change bgrd color DONE
+ *     - if does not match:
  *         - remove from list of open cards DONE
  *         - hide symbol, animation, default bgrd color DONE
 
- * 3. Move counter
- *   - increase by 1 if a new card is clicked
+ * 3. Move counter DONE
+ *   - increase by 1 if a new card is clicked DONE
 
- * 4. Timer
+ * 4. Stars DONE
+ *   -  decrease by 1 if a certain condition is met in move count DONE
+ *   -  display 3 stars when game is reset DONE
+
+ * 5. Timer
  *   - start when first card is clicked (and put to open status)
  *   - stop when all cards are open and matched
-
- * 5. Stars
- *   -  display 3 stars full
- *   -  decrease by 1 if a certain condition is met in move count
 
  * 6. Restart button
  *   - reset gameboard (close all cards, shuffle cards)
