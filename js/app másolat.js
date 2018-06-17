@@ -4,12 +4,11 @@
 
 const cards = document.querySelectorAll('.deck li');
 const moveCounter = document.querySelector('.moves');
-
-// Convert nodelist to array https://davidwalsh.name/nodelist-array
-const stars = Array.prototype.slice.call(document.querySelectorAll('.stars li'));
+const stars = document.querySelectorAll('.stars li');
 
 let numberOfMoves = 0;
 let openCards = [];
+
 
 // Start game with initial
 
@@ -19,7 +18,6 @@ function startGame() {
       card.isClicked = 0;
   }
   shuffleDeck(cards);
-  updateStars(3);
 
 }
 
@@ -83,9 +81,7 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
 
   // Increment move counter by 1
   incrementCounter();
-
-  let rating = getRating(numberOfMoves);
-  updateStars(rating);
+  updateStars(numberOfMoves);
 
   card.className = "card show open";
   openCards.push(card);
@@ -142,27 +138,18 @@ function incrementCounter() {
   moveCounter.innerHTML = numberOfMoves;
 }
 
-// Gewt rating based on number of moves
-
-function getRating(moves) {
-    if (moves <= 5) {
-        return 3;
-    } else if (moves <= 8){
-        return 2;
-    } else {
-        return 1;
-    }
+function getRating (numberOfMoves){
+  
 }
 
-// Update number of stars visible based on the rating (depending on the number of moves)
-function updateStars(rating) {
-    let invisible = stars.slice(rating);
-    let visible = stars.slice(0, rating);
+function updateStars(numberOfMoves) {
+  if (numberOfMoves === 5) {
+    stars[2].style.visibility = 'hidden';
+  } else if (numberOfMoves === 8) {
+    stars[1].style.visibility = 'hidden';
+  }
 
-    invisible.forEach(star => star.style.visibility = "hidden");
-    visible.forEach(star => star.style.visibility = "visible");
 }
-
 
 /* TODOs:
 
