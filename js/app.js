@@ -17,6 +17,9 @@ const stars = Array.prototype.slice.call(document.querySelectorAll('.stars li'))
 const twoStarLimit = 5;
 const oneStarLimit = 8;
 
+const timer = document.querySelector('.timer');
+let elapsedSeconds = 0;
+
 // Start game with initial
 
 function startGame() {
@@ -26,7 +29,6 @@ function startGame() {
   }
   shuffleDeck(cards);
   updateStars(3);
-
 }
 
 // Create a list that holds all of your cards
@@ -89,6 +91,11 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
 
   // Increment move counter by 1
   incrementCounter();
+
+  // Star timer on first move
+  if (numberOfMoves === 1) {
+    timerId = setInterval (updateTimer, 1000)
+  }
 
   let rating = getRating(numberOfMoves);
   updateStars(rating);
@@ -169,6 +176,23 @@ function updateStars(rating) {
     visible.forEach(star => star.style.visibility = "visible");
 }
 
+/*
+ * Functions for updating timer
+ * Padding numbers to 2: https://gist.github.com/endel/321925f6cafa25bbfbde
+ */
+
+function updateTimer() {
+  elapsedSeconds++;
+  let seconds = elapsedSeconds % 60;
+  let minutes = Math.floor(elapsedSeconds / 60);
+  let displayedTime = `${minutes.pad(2)}:${seconds.pad(2)}`;
+  timer.innerHTML = displayedTime;
+}
+
+Number.prototype.pad = function(size) {
+  var sign = Math.sign(this) === -1 ? '-' : '';
+  return sign + new Array(size).concat([Math.abs(this)]).join('0').slice(-size);
+}
 
 /* TODOs:
 
