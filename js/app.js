@@ -12,6 +12,7 @@ let numberOfMoves = 0;
 /* Global variables for star rating
 * Convert nodelist to array https://davidwalsh.name/nodelist-array */
 const stars = Array.prototype.slice.call(document.querySelectorAll('.stars li'));
+const starsPopup = Array.prototype.slice.call(document.querySelectorAll('.stars-popup li'));
 const twoStarLimit = 5;
 const oneStarLimit = 8;
 
@@ -89,10 +90,9 @@ function getRating(moves) {
 }
 
 // STAR RATING - Update number of stars visible based on the rating (depending on the number of moves)
-function updateStars(rating) {
-  let invisible = stars.slice(rating);
-  let visible = stars.slice(0, rating);
-
+function updateStars(starsArray, rating) {
+  let invisible = starsArray.slice(rating);
+  let visible = starsArray.slice(0, rating);
   invisible.forEach(star => star.style.visibility = "hidden");
   visible.forEach(star => star.style.visibility = "visible");
 }
@@ -131,12 +131,18 @@ function stopTimer() {
 
 // POPUP - Open popup
 function openPopup () {
-  popup.style.visibility = 'visible';
+  popup.style.display = '';
+  let movesSpent = document.querySelector('#moves-spent');
+  let timeSpent = document.querySelector('#time-spent');
+  let starRating = getRating(numberOfMoves);
+  movesSpent.innerHTML = numberOfMoves;
+  timeSpent.innerHTML = timer.innerHTML;
+  updateStars(starsPopup, starRating);
 }
 
 // POPUP - Close popup
 function closePopup () {
-  popup.style.visibility = 'hidden';
+  popup.style.display = 'none';
 }
 
 // Event listener for restart buttons
@@ -174,7 +180,7 @@ cards.forEach(card => card.addEventListener('click', function (evt) {
   }
 
   let rating = getRating(numberOfMoves);
-  updateStars(rating);
+  updateStars(stars, rating);
 
   card.className = "card show open";
   openCards.push(card);
@@ -233,7 +239,7 @@ function startGame() {
   openCards = [];
   shuffleDeck(cards);
   resetCounter();
-  updateStars(3);
+  updateStars(stars, 3);
   stopTimer();
   updateTimer(0);
   closePopup();
