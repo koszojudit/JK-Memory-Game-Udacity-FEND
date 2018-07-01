@@ -13,8 +13,8 @@ let numberOfMoves = 0;
 * Convert nodelist to array https://davidwalsh.name/nodelist-array */
 const stars = Array.prototype.slice.call(document.querySelectorAll('.stars li'));
 const starsPopup = Array.prototype.slice.call(document.querySelectorAll('.stars-popup li'));
-const twoStarLimit = 5;
-const oneStarLimit = 8;
+const twoStarLimit = 25;
+const oneStarLimit = 50;
 
 // Global variables for timer
 const timer = document.querySelector('.timer');

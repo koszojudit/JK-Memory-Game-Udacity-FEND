@@ -122,6 +122,7 @@ h1 {
 .score-panel .restart {
   float: right;
   cursor: pointer;
+  display: inline-flex;
 }
 
 .score-panel .timer {
@@ -161,8 +162,8 @@ h1 {
   bottom: 0;
   left: 0;
   right: 0;
-  width: 50%;
-  height: 50%;
+  width: 660px;
+  height: 380px;
   margin: auto;
 
   padding: 1.5em;
@@ -189,12 +190,14 @@ h1 {
 
 .left h2 {
   font-size: 1.2em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Coda', cursive;
   font-weight: 400;
-  margin: 0 1em 1em 0;
+  margin: 0 2em 1em 0;
 }
 
 .stars-popup {
+  font-size: 1.2em;
+  vertical-align: text-top;
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -204,6 +207,7 @@ h1 {
 .stars-popup li {
   list-style: none;
   display: inline-block;
+  margin-bottom: 1em;
 }
 
 button {
@@ -211,8 +215,8 @@ button {
   background-color: white;
   font-family: 'Open Sans', sans-serif;
   font-weight: normal;
-  font-size: 0.9em;
-  padding: 0.5em;
+  font-size: 1.1em;
+  padding: 0.6em;
   border-radius: 0.25em;
   text-align: center;
 }
@@ -227,16 +231,7 @@ button {
 
 #image-unicorn {
   padding-top: 1em;
-  text-align: right;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
   width: 80%;
-  margin: 0;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .copywright {
@@ -249,3 +244,157 @@ button {
   width: 80%;
   text-align: center;
 }
+
+/*
+Media queries for responsive layout
+*/
+
+@media screen and (max-width: 660px) {
+
+  /* Score panel */
+
+  .score-panel {
+    text-align: left;
+    width: 320px;
+    margin-bottom: 10px;
+  }
+
+  /* Main deck */
+
+  .deck {
+    width: 400px;
+    min-height: 420px;
+    padding: 20px;
+  }
+
+  .deck .card {
+    height: 80px;
+    width: 80px;
+  }
+
+  .deck .card.show {
+    font-size: 24px;
+  }
+
+  .deck .card.match {
+    font-size: 24px;
+  }
+
+  /* Winning popup */
+
+  .winning-popup {
+    width: 400px;
+    height: 300px;
+    margin: auto;
+    padding: 0em;
+  }
+
+  .winning-popup-left {
+    width: 60%;
+    padding-left: 2em;
+  }
+
+  .winning-popup-left h1 {
+    font-size: 2em;
+  }
+
+  .left h2 {
+    margin: 0 1em 0.8em 0;
+  }
+
+  button {
+    font-size: 0.9em;
+    padding: 0.5em;
+  }
+
+  #image-unicorn {
+    padding-top: 1em;
+    width: 80%;
+    padding: 3em 0 0 1em;
+  }
+
+  @media screen and (max-width: 450px) {
+
+    /* Main deck */
+
+    .deck {
+      width: 300px;
+      min-height: 310px;
+      box-shadow: 6px 7px 10px 0 rgba(46, 61, 73, 0.5);
+      padding: 10px;
+    }
+
+    .deck .card {
+      height: 60px;
+      width: 60px;
+    }
+
+    .deck .card.show {
+      font-size: 18px;
+    }
+
+    .deck .card.match {
+      font-size: 18px;
+    }
+
+    .score-panel {
+      padding: 0 0 0 1em;
+    }
+
+    /* Score panel */
+
+    .score-panel {
+      width: 280px;
+    }
+
+    .score-panel .timer {
+      margin-left: 3em;
+    }
+
+    /* Winning popup */
+
+    .winning-popup {
+      width: 300px;
+      height: 240px;
+      margin: auto;
+      padding: 0em;
+    }
+
+    .winning-popup-left {
+      width: 60%;
+      padding-left: 2em;
+    }
+
+    .winning-popup-left h1 {
+      font-size: 1.6em;
+    }
+
+    .left h2 {
+      font-size: 0.9em;
+      margin: 0 0.5em 0.5em 0;
+    }
+
+    .stars-popup {
+      font-size: 0.8em;
+    }
+
+    .stars-popup li {
+      margin-bottom: 0.8em;
+    }
+
+    button {
+      font-size: 0.9em;
+      padding: 0.5em;
+      margin-top: 0.5em;
+    }
+
+    #image-unicorn {
+      padding-top: 1em;
+      width: 80%;
+      padding: 3em 0 0 1em;
+    }
+
+
+    .copywright {
+      font-size: 0.5em;
+    }
